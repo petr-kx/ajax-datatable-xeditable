@@ -1504,10 +1504,16 @@ License: You must have a valid license purchased only from themeforest(the above
 										</div>
 									</td>
 									<td>
-										<input type="text" class="form-control form-filter input-sm" name="order_price_to"/>
+										<select name="VoucherType" class="form-control form-filter input-sm">
+											<option value="">Select Type...</option>
+											<option value="Cancel">PercentageDiscount</option>
+											<option value="Cancel">LumpDiscount</option>
+											<option value="Cancel">CreditNote</option>
+										</select>
+										<input type="text" class="form-control form-filter input-sm" name="Amount" placeholder="Amount">
 									</td>
 									<td>
-										<input type="text" class="form-control form-filter input-sm" name="order_id">
+										<input type="text" class="form-control form-filter input-sm" name="Description">
 									</td>
 									<td>
 										<div class="margin-bottom-5">
