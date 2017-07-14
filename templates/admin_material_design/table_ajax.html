@@ -1448,19 +1448,19 @@ License: You must have a valid license purchased only from themeforest(the above
 									<th width="2%">
 										<input type="checkbox" class="group-checkable">
 									</th>
-									<th width="5%">
+									<th width="10%">
 										 Status
 									</th>
-									<th width="10%">
+									<th width="8%">
 										 Code
 									</th>
-									<th width="10%">
+									<th width="13%">
 										 Start
 									</th>
-									<th width="10%">
+									<th width="13%">
 										 Expiry
 									</th>
-									<th width="10%">
+									<th width="15%">
 										 Type&nbsp;+&nbsp;Discount
 									</th>
 									<th width="10%">
@@ -1477,19 +1477,25 @@ License: You must have a valid license purchased only from themeforest(the above
 									<td>
 									</td>
 									<td>
-										<select name="order_status" class="form-control form-filter input-sm">
+										<select name="Status" class="form-control form-filter input-sm">
 											<option value="">Select...</option>
-											<option value="Cancel">Enabled</option>
-											<option value="Cancel">Expired</option>
-											<option value="Cancel">Disabled</option>
+											<option value="Enabled">Enabled</option>
+											<option value="Expired">Expired</option>
+											<option value="Disabled">Disabled</option>
 										</select>
 									</td>
 									<td>
-										<input type="text" class="form-control form-filter input-sm" name="order_ship_to">
+										<input type="text" class="form-control form-filter input-sm" name="Code">
 									</td>
 									<td>
 										<div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
-											<input type="text" class="form-control form-filter input-sm" readonly name="ValidFrom" placeholder="Valid From">
+											<input type="text" class="form-control form-filter input-sm" readonly name="ValidFromBegin" placeholder="From">
+											<span class="input-group-btn">
+											<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+											</span>
+										</div>
+										<div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
+											<input type="text" class="form-control form-filter input-sm" readonly name="ValidFromEnd" placeholder="To">
 											<span class="input-group-btn">
 											<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 											</span>
@@ -1497,20 +1503,30 @@ License: You must have a valid license purchased only from themeforest(the above
 									</td>
 									<td>
 										<div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
-											<input type="text" class="form-control form-filter input-sm" readonly name="Expiry" placeholder="Expiry">
+											<input type="text" class="form-control form-filter input-sm" readonly name="ExpiryBegin" placeholder="From">
+											<span class="input-group-btn">
+											<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+											</span>
+										</div>
+										<div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
+											<input type="text" class="form-control form-filter input-sm" readonly name="ExpiryEnd" placeholder="To">
 											<span class="input-group-btn">
 											<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 											</span>
 										</div>
 									</td>
 									<td>
-										<select name="VoucherType" class="form-control form-filter input-sm">
-											<option value="">Select Type...</option>
-											<option value="Cancel">PercentageDiscount</option>
-											<option value="Cancel">LumpDiscount</option>
-											<option value="Cancel">CreditNote</option>
-										</select>
-										<input type="text" class="form-control form-filter input-sm" name="Amount" placeholder="Amount">
+										<div class="margin-bottom-5">
+											<select name="VoucherType" class="form-control form-filter input-sm">
+												<option value="">Select Type...</option>
+												<option value="PercentageDiscount">PercentageDiscount</option>
+												<option value="LumpDiscount">LumpDiscount</option>
+												<option value="CreditNote">CreditNote</option>
+											</select>
+										</div>
+										<div class="">
+											<input type="text" class="form-control form-filter input-sm" name="Amount" placeholder="Amount">
+										</div>
 									</td>
 									<td>
 										<input type="text" class="form-control form-filter input-sm" name="Description">
