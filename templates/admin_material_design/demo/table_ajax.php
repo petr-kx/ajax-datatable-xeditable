@@ -33,12 +33,12 @@
     $records["data"][] = array(
       '<input type="checkbox" name="id[]" value="'.$id.'">',
       '<span class="label label-sm label-'.(key($status)).'">'.(current($status)).'</span>',
-      'prxx20',
+      '<span data-voucherid="12345">prxx20</span>',
       '12/09/2013',
       '12/10/2013',
       key($typeAndDisc),
       current($typeAndDisc),
-      '<a href="javascript:;" class="btn btn-xs default"><i class="fa fa-search"></i> View</a>',
+      '<a href="javascript:;" class="btn btn-xs default view-detail"><i class="fa fa-search"></i> View</a>',
    );
   }
 

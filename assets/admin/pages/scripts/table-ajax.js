@@ -1,5 +1,5 @@
 var TableAjax = function () {
-
+    var grid;
     var initPickers = function () {
         //init date pickers
         $('.date-picker').datepicker({
@@ -8,20 +8,57 @@ var TableAjax = function () {
         });
     }
 
+    var bindDetails = function() {
+        // Add event listener for opening and closing details
+        $('#datatable_ajax').on('click', '.view-detail', function () {
+            var tr = $(this).closest('tr');
+            console.log('View detail clicked.')
+            var row = grid.row(tr);
+
+            if ($(tr).hasClass('shown')) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                openChildRow(row, tr);
+            }
+        });
+    }
+
+    var openChildRow = function (row, tr) {
+        var voucherId = $(tr).find('td:eq(3)').data('voucherid');
+        $.ajax({
+            url: 'demo/table_ajax.php',
+            data: {
+                "voucherId": voucherId
+            },
+            success: function (data) {
+                row.child(data).show();
+                tr.addClass('shown');
+            }
+        });
+    }
+
     var handleRecords = function () {
 
-        var grid = new Datatable();
+        grid = new Datatable();
 
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid) {
                 // execute some code after table records loaded
+                console.log('onSuccess');
             },
             onError: function (grid) {
-                // execute some code on network or other general error  
+                // execute some code on network or other general error
+                console.log('onError');  
             },
             onDataLoad: function(grid) {
                 // execute some code on ajax data load
+                console.log('onDataLoad');
+                bindDetails();
             },
             loadingMessage: 'Loading...',
             dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 
