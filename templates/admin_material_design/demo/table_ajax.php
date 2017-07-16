@@ -33,7 +33,7 @@
     $records["data"][] = array(
       '<input type="checkbox" name="id[]" value="'.$id.'">',
       '<span class="label label-sm label-'.(key($status)).'">'.(current($status)).'</span>',
-      '<span data-voucherid="12345">prxx20</span>',
+      '<span data-voucherid="'.$id.'">prxx20</span>',
       '12/09/2013',
       '12/10/2013',
       key($typeAndDisc),

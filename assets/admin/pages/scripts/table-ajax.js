@@ -12,30 +12,31 @@ var TableAjax = function () {
         // Add event listener for opening and closing details
         $('#datatable_ajax').on('click', '.view-detail', function () {
             var tr = $(this).closest('tr');
-            console.log('View detail clicked.')
-            var row = grid.row(tr);
+            var voucherId = $(tr).find('td:eq(2) span').data('voucherid');
+            console.log('View detail clicked, voucherId = ' + voucherId);
 
             if ($(tr).hasClass('shown')) {
-                // This row is already open - close it
-                row.child.hide();
+                // The row is already open - close it
+                $(tr).next('.voucher-detail').remove();
                 tr.removeClass('shown');
             }
             else {
                 // Open this row
-                openChildRow(row, tr);
+                var trDetail = $('<tr class="voucher-detail"><td colspan="8"></td></tr>').insertAfter($(this).closest('tr'));
+                $(trDetail).insertAfter($(tr));
+                openChildRow(trDetail, tr, voucherId);
             }
         });
     }
 
-    var openChildRow = function (row, tr) {
-        var voucherId = $(tr).find('td:eq(3)').data('voucherid');
+    var openChildRow = function (trDetail, tr, voucherId) {
         $.ajax({
             url: 'demo/table_ajax.php',
             data: {
                 "voucherId": voucherId
             },
             success: function (data) {
-                row.child(data).show();
+                trDetail.find('td').html(data);
                 tr.addClass('shown');
             }
         });
@@ -58,7 +59,6 @@ var TableAjax = function () {
             onDataLoad: function(grid) {
                 // execute some code on ajax data load
                 console.log('onDataLoad');
-                bindDetails();
             },
             loadingMessage: 'Loading...',
             dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 
@@ -120,6 +120,7 @@ var TableAjax = function () {
         init: function () {
 
             initPickers();
+            bindDetails();
             handleRecords();
         }
 
