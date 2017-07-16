@@ -22,7 +22,7 @@ var TableAjax = function () {
             }
             else {
                 // Open this row
-                var trDetail = $('<tr class="voucher-detail"><td colspan="8"></td></tr>').insertAfter($(this).closest('tr'));
+                var trDetail = $('<tr class="voucher-detail" style="background-color:#eeefa5;"><td colspan="8"></td></tr>').insertAfter($(this).closest('tr'));
                 $(trDetail).insertAfter($(tr));
                 openChildRow(trDetail, tr, voucherId);
             }
@@ -31,7 +31,7 @@ var TableAjax = function () {
 
     var openChildRow = function (trDetail, tr, voucherId) {
         $.ajax({
-            url: 'demo/table_ajax.php',
+            url: 'demo/voucher_detail.php',
             data: {
                 "voucherId": voucherId
             },
