@@ -22,7 +22,7 @@ var TableAjax = function () {
             }
             else {
                 // Open this row
-                var trDetail = $('<tr class="voucher-detail" style="background-color:#eeefa5;"><td colspan="8"></td></tr>').insertAfter($(this).closest('tr'));
+                var trDetail = $('<tr class="voucher-detail"><td colspan="8"></td></tr>').insertAfter($(this).closest('tr'));
                 $(trDetail).insertAfter($(tr));
                 openChildRow(trDetail, tr, voucherId);
             }
@@ -37,9 +37,36 @@ var TableAjax = function () {
             },
             success: function (data) {
                 trDetail.find('td').html(data);
+                $(".select2-vrs").select2({
+                    selectOnBlur: true
+                });                   
                 tr.addClass('shown');
             }
         });
+    }
+
+    var setEditables = function() {
+        $('.vcodeedit, .descedit, .amountedit').editable({
+
+        });
+
+        $('.dateedit').editable({
+            format: 'yyyy-mm-dd',    
+            viewformat: 'dd/mm/yyyy',    
+            datepicker: {
+                weekStart: 1
+           }
+        });
+
+        $('.typeedit').editable({
+            // value: 2,    
+            source: [
+                {value: 1, text: 'Percentage Discount'},
+                {value: 2, text: 'Lump Discount'},
+                {value: 3, text: 'Credit Note'}
+            ]
+        });
+        
     }
 
     var handleRecords = function () {
@@ -59,6 +86,7 @@ var TableAjax = function () {
             onDataLoad: function(grid) {
                 // execute some code on ajax data load
                 console.log('onDataLoad');
+                setEditables();
             },
             loadingMessage: 'Loading...',
             dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 

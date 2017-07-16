@@ -10,9 +10,14 @@
                         <div class="col-md-9">
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Virtual Restaurant Ids Csv</label>
+                                <label class="col-md-4 control-label">Virtual Restaurants</label>
                                 <div class="col-md-8">
-                                    <textarea id="VirtualRestaurantIdsCsv" class="form-control" rows="3"></textarea>
+                                  <select class="select2-vrs" multiple="multiple" name="virtualRestaurants" style="width: 100%;">
+                                    <option value="1" selected>	The Roma Takeaway (Clondalkin)[5]</option>
+                                    <option value="2" selected>Luigis Longford[7]</option>
+                                    <option value="3">Thai Garden Barnet[10]</option>
+                                    <option value="4">Shakira Indian (Dun Laoghaire)[35]</option>
+                                  </select>                                    
                                 </div>
                             </div>
                         </div>
