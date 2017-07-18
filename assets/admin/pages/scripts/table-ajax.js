@@ -1,5 +1,4 @@
 var TableAjax = function () {
-    var grid;
     var initPickers = function () {
         //init date pickers
         $('.date-picker').datepicker({
@@ -22,11 +21,68 @@ var TableAjax = function () {
             }
             else {
                 // Open this row
-                var trDetail = $('<tr class="voucher-detail"><td colspan="8"></td></tr>').insertAfter($(this).closest('tr'));
+                var trDetail = $('<tr class="voucher-detail" data-voucherid="' + voucherId + '"><td></td><td class="datatdv" colspan="8"></td></tr>').insertAfter($(this).closest('tr'));
                 $(trDetail).insertAfter($(tr));
                 openChildRow(trDetail, tr, voucherId);
             }
         });
+
+        $('#datatable_ajax').on('click', '.updateVoucherConfig', function () {
+            var tr = $(this).closest('tr');
+            submitVoucherDetail(tr);
+        });
+    }
+
+    var submitVoucherDetail = function(tr) {
+        var voucherId = $(tr).data('voucherid');
+        console.log('Submit voucher detail clicked, voucherId = ' + voucherId);
+
+        var data = getConfigData(tr); 
+
+        $.ajax({
+            url: 'demo/voucher_detail.php',
+            data: data,
+            success: function (response) {
+                alert('Voucher was updated.');
+            }
+        });
+    }
+
+    var getConfigData = function(tr) {
+        var virtualRestaurantIds = [];
+        $($(tr).find('.select2-vrs').val()).each(function(i, v){
+            virtualRestaurantIds[i] = v;
+        });        
+
+        var minimumOrderAmount = $(tr).find('.MinimumOrderAmount').val();
+
+        var isEnabled = $(tr).find('.IsEnabled').is(':checked');
+        var isReusable = $(tr).find('.IsReusable').is(':checked');
+        var isUsedUp = $(tr).find('.IsUsedUp').is(':checked');
+        var isValidForPickupOrders = $(tr).find('.IsValidForPickupOrders').is(':checked');
+        var isValidForDeliveryOrders = $(tr).find('.IsValidForDeliveryOrders').is(':checked');
+        var isValidForCardOrders = $(tr).find('.IsValidForCardOrders').is(':checked');
+        var isValidForCashOrders = $(tr).find('.IsValidForCashOrders').is(':checked');
+        var isValidForFirstOrderOnly = $(tr).find('.IsValidForFirstOrderOnly').is(':checked');
+        var isValidOncePerCustomer = $(tr).find('.IsValidOncePerCustomer').is(':checked');
+        var autoApply = $(tr).find('.AutoApply').is(':checked');
+
+        var data = {
+            virtualRestaurantIds: virtualRestaurantIds,
+            minimumOrderAmount: minimumOrderAmount,
+            isEnabled: isEnabled,
+            isReusable: isReusable,
+            isUsedUp: isUsedUp,
+            isValidForPickupOrders: isValidForPickupOrders,
+            isValidForDeliveryOrders: isValidForDeliveryOrders,
+            isValidForCardOrders: isValidForCardOrders,
+            isValidForCashOrders: isValidForCashOrders,
+            isValidForFirstOrderOnly: isValidForFirstOrderOnly,
+            isValidOncePerCustomer: isValidOncePerCustomer,
+            autoApply: autoApply,
+        }
+
+        return data;
     }
 
     var openChildRow = function (trDetail, tr, voucherId) {
@@ -36,7 +92,7 @@ var TableAjax = function () {
                 "voucherId": voucherId
             },
             success: function (data) {
-                trDetail.find('td').html(data);
+                trDetail.find('td.datatdv').html(data);
                 $(".select2-vrs").select2({
                     selectOnBlur: true
                 });                   
@@ -59,19 +115,32 @@ var TableAjax = function () {
         });
 
         $('.typeedit').editable({
-            // value: 2,    
             source: [
                 {value: 1, text: 'Percentage Discount'},
                 {value: 2, text: 'Lump Discount'},
                 {value: 3, text: 'Credit Note'}
-            ]
+            ],
+            success: function(response, newValue) {
+                var tr = $(this).closest('tr');
+                newValue = 1;
+                var descr = response.Description;
+                if (newValue == 1)
+                {
+                    $(tr).find('.eurosign').hide();
+                    $(tr).find('.percentsign').show();
+                    var descEl = $(tr).find('.descedit');
+                    var amount = $(tr).find('.amountedit').html();
+                    $(descEl).editable('setValue',amount + "% OFF");
+                    // todo use values from server
+                }
+            }
         });
         
     }
 
     var handleRecords = function () {
 
-        grid = new Datatable();
+        var grid = new Datatable();
 
         grid.init({
             src: $("#datatable_ajax"),

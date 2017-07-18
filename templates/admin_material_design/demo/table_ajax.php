@@ -31,13 +31,14 @@
     $status = $status_list[rand(0, 2)];
     $typeAndDisc = $td_list[$index];
     $id = ($i + 1);
+    $typeVal = ++$index;
     $records["data"][] = array(
       '<input type="checkbox" name="id[]" value="'.$id.'">',
       '<span class="label label-sm label-'.(key($status)).'">'.(current($status)).'</span>',
       '<span data-voucherid="'.$id.'"><a href="#" class="vcodeedit" data-type="text" data-pk="1" data-url="demo/table_ajax.php" data-title="Enter voucher code">prxx20</a></span>',
       '<a href="#" class="dateedit" data-type="date" data-pk="1" data-url="demo/table_ajax.php" data-title="Select Start date">12/10/2013</a>',
       '<a href="#" class="dateedit" data-type="date" data-pk="1" data-url="demo/table_ajax.php" data-title="Select End date">12/10/2013</a>',
-      '€<a href="#" class="amountedit" data-type="number" data-pk="1" data-url="demo/table_ajax.php" data-title="Enter value">'.key($typeAndDisc).'</a>&nbsp/&nbsp<a href="#" class="typeedit" data-type="select" data-value="'.$index.'" data-pk="1" data-url="demo/table_ajax.php" data-title="Select type"></a>',
+      '<span class="eurosign">€</span><a href="#" class="amountedit" data-type="number" data-pk="1" data-url="demo/table_ajax.php" data-title="Enter value">'.key($typeAndDisc).'</a><span class="percentsign" hidden>%</span>&nbsp/&nbsp<a href="#" class="typeedit" data-type="select" data-value="'.$typeVal.'" data-pk="1" data-url="demo/table_ajax.php" data-title="Select type"></a>',
       '<a href="#" class="descedit" data-type="text" data-pk="1" data-url="demo/table_ajax.php" data-title="Enter description">'.(current($typeAndDisc)).'</a>',
       '<a href="javascript:;" class="btn btn-xs default view-detail"><i class="fa fa-search"></i> View</a>',
    );
