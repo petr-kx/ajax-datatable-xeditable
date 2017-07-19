@@ -93,13 +93,39 @@ var TableAjax = function () {
             },
             success: function (data) {
                 trDetail.find('td.datatdv').html(data);
-                $(".select2-vrs").select2({
-                    selectOnBlur: true
-                });                   
+                vrSelect2(trDetail);
                 tr.addClass('shown');
             }
         });
     }
+
+    var vrSelect2 = function(trDetail) {
+        var select2 = trDetail.find(".select2-vrs").first();
+        $(select2).select2({
+            selectOnBlur: true,
+            ajax: {
+                url: 'demo/table_ajax.php',
+                dataType: 'json',
+                type: "GET",
+                delay: 250,
+                data: function (searchObj) {
+                    return {
+                        filter: searchObj.term
+                    }
+                },
+                processResults: function (data) {
+                    var res = $.map(data, function (val, i) {
+                                    return {
+                                        id: i,
+                                        slug: val,
+                                        text: val
+                                    }
+                                });
+                    return res;
+                }
+            }
+        });                 
+    } 
 
     var setEditables = function() {
         $('.vcodeedit, .descedit, .amountedit').editable({
