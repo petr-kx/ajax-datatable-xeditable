@@ -18,7 +18,9 @@
   $status_list = array(
     array("success" => "Enabled"),
     array("info" => "Expired"),
-    array("danger" => "Disabled")
+    array("danger" => "Disabled"),
+    array("info" => "NotYetValid"),
+    array("warning" => "UsedUp")
   );
   $td_list = array(
     array(20 => "20% OFF"),
@@ -28,7 +30,7 @@
 
   for($i = $iDisplayStart; $i < $end; $i++) {
     $index = rand(1, 2);
-    $status = $status_list[rand(0, 2)];
+    $status = $status_list[rand(0, 4)];
     $typeAndDisc = $td_list[$index];
     $id = ($i + 1);
     $typeVal = ++$index;

@@ -33,7 +33,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>
+<!--<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
 <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
 <!-- END PAGE LEVEL STYLES -->
@@ -1439,9 +1441,11 @@ License: You must have a valid license purchased only from themeforest(the above
 									</span>
 									<select class="table-group-action-input form-control input-inline input-small input-sm">
 										<option value="">Select...</option>
-										<option value="Cancel">Enabled</option>
-										<option value="Cancel">Expired</option>
-										<option value="Cancel">Disabled</option>
+										<option value="Enabled">Enabled</option>
+										<option value="Expired">Expired</option>
+										<option value="Disabled">Disabled</option>
+										<option value="NotYetValid">NotYetValid</option>
+										<option value="UsedUp">UsedUp</option>
 									</select>
 									<button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
 								</div>
@@ -1485,6 +1489,8 @@ License: You must have a valid license purchased only from themeforest(the above
 											<option value="Enabled">Enabled</option>
 											<option value="Expired">Expired</option>
 											<option value="Disabled">Disabled</option>
+											<option value="NotYetValid">NotYetValid</option>
+											<option value="UsedUp">UsedUp</option>
 										</select>
 									</td>
 									<td>
@@ -2237,7 +2243,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script type="text/javascript" src="../../assets/global/plugins/select2/select2.min.js"></script>
+<!--<script type="text/javascript" src="../../assets/global/plugins/select2/select2.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
