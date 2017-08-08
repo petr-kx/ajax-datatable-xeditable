@@ -1440,7 +1440,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<span>
 									</span>
 									<select class="table-group-action-input form-control input-inline input-small input-sm">
-										<option value="">Select...</option>
+										<option value="">Status...</option>
 										<option value="Enabled">Enabled</option>
 										<option value="Expired">Expired</option>
 										<option value="Disabled">Disabled</option>
@@ -1456,7 +1456,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										<input type="checkbox" class="group-checkable">
 									</th>
 									<th width="10%">
-										 Status
+										 Subtype
 									</th>
 									<th width="8%">
 										 Code
@@ -1484,14 +1484,29 @@ License: You must have a valid license purchased only from themeforest(the above
 									<td>
 									</td>
 									<td>
-										<select name="Status" class="form-control form-filter input-sm">
-											<option value="">Select...</option>
-											<option value="Enabled">Enabled</option>
-											<option value="Expired">Expired</option>
-											<option value="Disabled">Disabled</option>
-											<option value="NotYetValid">NotYetValid</option>
-											<option value="UsedUp">UsedUp</option>
-										</select>
+										<div class="margin-bottom-5">
+											<select name="SubType" class="form-control form-filter input-sm">
+												<option value="">Subtype...</option>
+												<option value="None">None</option>
+												<option value="Loyalty">Loyalty</option>
+												<option value="Loyalty25">Loyalty25</option>
+												<option value="Retention">Retention</option>
+												<option value="SecondaryRetention">SecondaryRetention</option>
+												<option value="Custom">Custom</option>
+											</select>
+										</div>
+										<div>
+											<select name="Status" class="form-control form-filter input-sm">
+												<option value="">Status...</option>
+												<option value="Enabled">Enabled</option>
+												<option value="Expired">Expired</option>
+												<option value="Disabled">Disabled</option>
+												<option value="NotYetValid">NotYetValid</option>
+												<option value="UsedUp">UsedUp</option>
+												<option value="UsedUp">IsActive</option>
+												<option value="UsedUp">NotActive</option>
+											</select>
+										</div>
 									</td>
 									<td>
 										<input type="text" class="form-control form-filter input-sm" name="Code">

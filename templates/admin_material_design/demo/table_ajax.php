@@ -15,12 +15,14 @@
   $end = $iDisplayStart + $iDisplayLength;
   $end = $end > $iTotalRecords ? $iTotalRecords : $end;
 
-  $status_list = array(
-    array("success" => "Enabled"),
-    array("info" => "Expired"),
-    array("danger" => "Disabled"),
-    array("info" => "NotYetValid"),
-    array("warning" => "UsedUp")
+  $subtype_list = array(
+    array("danger" => "None"),
+    array("info" => "SignUp"),
+    array("info" => "Loyalty"),
+    array("info" => "Loyalty25"),
+    array("info" => "Retention"),
+    array("info" => "SecondaryRetention"),
+    array("success" => "Custom"),
   );
   $td_list = array(
     array(20 => "20% OFF"),
@@ -30,13 +32,19 @@
 
   for($i = $iDisplayStart; $i < $end; $i++) {
     $index = rand(1, 2);
-    $status = $status_list[rand(0, 4)];
+    $subtype = $subtype_list[rand(0, 6)];
     $typeAndDisc = $td_list[$index];
     $id = ($i + 1);
     $typeVal = ++$index;
+    $isActive = rand(0, 1);
+    $isEditable = 0;
+    if (current($subtype) == "Custom")
+    {
+      $isEditable = 1;
+    }
     $records["data"][] = array(
-      '<input type="checkbox" name="id[]" value="'.$id.'">',
-      '<span class="label label-sm label-'.(key($status)).'">'.(current($status)).'</span>',
+      '<input type="checkbox" name="id[]" value="'.$id.'" data-isactive="'.$isActive.'" data-iseditable="'.$isEditable.'">',
+      '<span class="label label-sm label-'.(key($subtype)).'">'.(current($subtype)).'</span>',
       '<span data-voucherid="'.$id.'"><a href="#" class="vcodeedit" data-type="text" data-pk="1" data-url="demo/table_ajax.php" data-title="Enter voucher code">prxx20</a></span>',
       '<a href="#" class="dateedit" data-type="date" data-pk="1" data-url="demo/table_ajax.php" data-title="Select Start date">12/10/2013</a>',
       '<a href="#" class="dateedit" data-type="date" data-pk="1" data-url="demo/table_ajax.php" data-title="Select End date">12/10/2013</a>',

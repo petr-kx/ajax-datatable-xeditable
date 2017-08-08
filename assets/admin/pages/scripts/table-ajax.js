@@ -43,6 +43,8 @@ var TableAjax = function () {
             url: 'demo/voucher_detail.php',
             data: data,
             success: function (response) {
+                var isActive = response.Data.IsActive;
+                updateActiveStatusOne(tr, isActive);
                 alert('Voucher was updated.');
             }
         });
@@ -128,40 +130,83 @@ var TableAjax = function () {
     } 
 
     var setEditables = function() {
-        $('.vcodeedit, .descedit, .amountedit').editable({
+        $('#datatable_ajax').find('tbody').find('tr').each(function(i, v){
+            var isEditable = $(v).find('td').first().find('input').data('iseditable');
+            console.log('Processing row index: ' + i + ' isEditable = ' + isEditable);
+            if (isEditable == 1)
+            {
+                $(v).find('.vcodeedit, .descedit, .amountedit').editable({
 
-        });
+                });
 
-        $('.dateedit').editable({
-            format: 'yyyy-mm-dd',    
-            viewformat: 'dd/mm/yyyy',    
-            datepicker: {
-                weekStart: 1
-           }
-        });
+                $(v).find('.dateedit').editable({
+                    format: 'yyyy-mm-dd',    
+                    viewformat: 'dd/mm/yyyy',    
+                    datepicker: {
+                        weekStart: 1
+                    },
+                    success: function(response) {
+                            var tr = $(this).closest('tr');
+                            var isActive = response.Data.IsActive;
+                            updateActiveStatusOne(tr, isActive);
+                        }
+                    });
 
-        $('.typeedit').editable({
-            source: [
-                {value: 1, text: 'Percentage Discount'},
-                {value: 2, text: 'Lump Discount'},
-                {value: 3, text: 'Credit Note'}
-            ],
-            success: function(response, newValue) {
-                var tr = $(this).closest('tr');
-                newValue = 1;
-                var descr = response.Description;
-                if (newValue == 1)
-                {
-                    $(tr).find('.eurosign').hide();
-                    $(tr).find('.percentsign').show();
-                    var descEl = $(tr).find('.descedit');
-                    var amount = $(tr).find('.amountedit').html();
-                    $(descEl).editable('setValue',amount + "% OFF");
-                    // todo use values from server
+                $(v).find('.typeedit').editable({
+                    source: [
+                        {value: 1, text: 'Percentage Discount'},
+                        {value: 2, text: 'Lump Discount'},
+                        {value: 3, text: 'Credit Note'}
+                    ],
+                    success: function(response, newValue) {
+                        var tr = $(this).closest('tr');
+                        newValue = 1;
+                        var descr = response.Description;
+                        if (newValue == 1)
+                        {
+                            $(tr).find('.eurosign').hide();
+                            $(tr).find('.percentsign').show();
+                            var descEl = $(tr).find('.descedit');
+                            var amount = $(tr).find('.amountedit').html();
+                            $(descEl).editable('setValue',amount + "% OFF");
+                            // todo use values from server
+                        }
+                    }
+                });
+            } else {
+                $(v).find('a:not(.view-detail)').css('pointer-events', 'none');
+                var el = $(v).find('.typeedit').first();
+                var val = $(el).data('value');
+                switch(val) {
+                    case 1: $(el).html('Percentage Discount'); break;
+                    case 2: $(el).html('Lump Discount'); break;
+                    case 3: $(el).html('Credit Note'); break;
+                    default: alert('Error: Unknown voucher type.');
                 }
             }
         });
+
         
+    }
+
+    var updateActiveStatusAll = function() {
+        $('#datatable_ajax').find('tbody').find('tr').each(function(i, v){
+            var isActive = $(v).find('td').first().find('input').data('isactive');
+            console.log('Processing row index: ' + i + ' isActive = ' + isActive);
+            if (isActive == 0)
+            {
+                $(v).addClass('my-not-active');
+            }
+        });
+    }
+
+    var updateActiveStatusOne = function(tr, isActive) {
+        if (isActive == 0)
+        {
+            $(tr).addClass('my-not-active');
+        } else {
+            $(tr).removeClass('my-not-active');
+        }
     }
 
     var handleRecords = function () {
@@ -182,6 +227,7 @@ var TableAjax = function () {
                 // execute some code on ajax data load
                 console.log('onDataLoad');
                 setEditables();
+                updateActiveStatusAll();
             },
             loadingMessage: 'Loading...',
             dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 

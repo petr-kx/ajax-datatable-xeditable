@@ -58,3 +58,7 @@ Change Quick Sidebar Width
   margin-left: -370px;
 }
 */
+
+.my-not-active {
+  background-color: #ded9d9;
+}
